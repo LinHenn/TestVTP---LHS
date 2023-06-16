@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: T-Burger
   m_EditorClassIdentifier: 
   RecipeName: T-Burger
-  RecipeArt: {fileID: 0}
+  RecipeArt: {fileID: 21300000, guid: 3a7542262c9998c429b97bbc38879f07, type: 3}
   ingredients: 000000000200000004000000

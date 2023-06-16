@@ -10,7 +10,7 @@ public class PointCtrl : MonoBehaviour
     public static PointCtrl instance;
 
     [SerializeField] TextMeshProUGUI points;
-    [SerializeField] TextMeshProUGUI timer;
+    [SerializeField] Slider timer;
 
 
     private void Awake()
@@ -43,9 +43,9 @@ public class PointCtrl : MonoBehaviour
     }
 
 
-    public void setPoints(int timeValue)
+    public void setPoints(float timeValue)
     {
-        timer.text = timeValue.ToString();
+        timer.value = timeValue;
     }
 
 }

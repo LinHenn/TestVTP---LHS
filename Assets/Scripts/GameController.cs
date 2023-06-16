@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameController : MonoBehaviour
@@ -23,6 +24,9 @@ public class GameController : MonoBehaviour
     public float timer { get; protected set; }
     public int points { get; protected set; }
 
+    //Only to have a small competition in the game
+    public static int highScore { get; protected set; }
+
     public Recipe actualOrder;
 
     private Animator orderAnim;
@@ -37,10 +41,8 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         orderAnim = Order.instance.gameObject.GetComponent<Animator>();
-        timer = 20;
-        PointCtrl.instance.setPoints((int)timer);
-
-        
+        timer = 120;
+        PointCtrl.instance.setPoints(timer);
     }
 
 
@@ -56,7 +58,7 @@ public class GameController : MonoBehaviour
     }
 
 
-    public void newOrder()
+    private void newOrder()
     {
         recipeIngredients.Clear();
 
@@ -90,7 +92,7 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void checkOrder()
+    private void checkOrder()
     {
         orderAnim.SetTrigger("finish");
 
@@ -144,14 +146,21 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         timer--;
-        PointCtrl.instance.setPoints((int)timer);
+        PointCtrl.instance.setPoints(timer);
 
         if(timer > 0) StartCoroutine(setTimer());
         else
         {
-            Debug.Log("Fim de jogo");
+            Debug.Log("GameOver");
+
+            if (points > highScore) highScore = points;
             canWork(false);
         }
+    }
+
+    public void playAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
