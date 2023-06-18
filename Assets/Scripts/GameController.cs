@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
 
     private Animator orderAnim;
 
+    private bool waitCheck; //if true, is waiting
 
     private void Awake()
     {
@@ -80,6 +81,8 @@ public class GameController : MonoBehaviour
     //add ingredient on the burger
     public void AddIngredient(Utils.ingredients ingredient)
     {
+        if (waitCheck) return;
+
         myIngredients.Add(ingredient);
 
         plateScript.instance.addIngredient(ingredient);
@@ -94,6 +97,8 @@ public class GameController : MonoBehaviour
 
     private void checkOrder()
     {
+        waitCheck = true;
+
         orderAnim.SetTrigger("finish");
 
         foreach (var ing in myIngredients)
@@ -132,6 +137,7 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         newOrder();
+        waitCheck = false;
 
     }
 
